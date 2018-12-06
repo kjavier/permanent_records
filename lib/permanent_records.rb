@@ -211,7 +211,7 @@ module PermanentRecords
         ids.each do |id|
           record = klass.unscoped.where(klass.primary_key => id).first
           next unless record
-          record.deleted_at = nil
+          record.deleted_at = nil if record.respond_to?(:deleted_at)
           record.destroy(:force)
         end
       end
